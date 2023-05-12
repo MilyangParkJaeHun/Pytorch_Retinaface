@@ -431,9 +431,6 @@ class FaceDetector():
         used_pretrained_keys = model_keys & ckpt_keys
         unused_pretrained_keys = ckpt_keys - model_keys
         missing_keys = model_keys - ckpt_keys
-        print('Missing keys:{}'.format(len(missing_keys)))
-        print('Unused checkpoint keys:{}'.format(len(unused_pretrained_keys)))
-        print('Used keys:{}'.format(len(used_pretrained_keys)))
         assert len(used_pretrained_keys) > 0, 'load NONE from pretrained checkpoint'
         return True
 
@@ -444,7 +441,6 @@ class FaceDetector():
 
 
     def _load_model(self, model, pretrained_path):
-        print('Loading pretrained model from {}'.format(pretrained_path))
         device = torch.cuda.current_device()
         pretrained_dict = torch.load(pretrained_path, map_location=lambda storage, loc: storage.cuda(device))
         if "state_dict" in pretrained_dict.keys():
